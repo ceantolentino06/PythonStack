@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Show Book</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="container border-bottom">
+            <div class="row">
+                <div class="container col-10">
+                    <h1>Welcome, {{ user.first_name }}!</h1>
+                </div>
+                <div class="container mt-3 col-2">
+                    <a href="/logout">Log Out</a>
+                </div>
+            </div>
+        </div>
+        <div class="container p-3">
+            <div class="row">
+                <div class="container col-6">
+                    <form action="/books/{{ book.id }}/update" method="POST">
+                        {% csrf_token %}
+                        {% if user.id == book.uploaded_by.id %}
+                        <div class="message">
+                            {% if messages %}
+                            {% for message in messages %}
+                            {% ifequal message.tags 'title error' %}
+                            <small class="text-danger">{{ message }}</small>
+                            {% endifequal %}
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <input type="text" class="form-control col-8 mb-1" name="title" id="title"
+                            value="{{ book.title }}">
+                        {% endif %}
+                        {% if user.id != book.uploaded_by.id %}
+                        <h4>{{ book.title }}</h4>
+                        {% endif %}
+                        <p class="m-0"><b>Added By:</b> {{ book.uploaded_by.first_name }}
+                            {{ book.uploaded_by.last_name }}</p>
+                        <p class="m-0"><b>Added On:</b> {{ book.created_at }}</p>
+                        <p class="m-0"><b>Last updated on:</b> {{ book.updated_at }}</p>
+                        {% if user.id == book.uploaded_by.id %}
+                        <label for="desc"><b>Description:</b></label>
+                        <div class="message">
+                            {% if messages %}
+                            {% for message in messages %}
+                            {% ifequal message.tags 'desc error' %}
+                            <small class="text-danger">{{ message }}</small>
+                            {% endifequal %}
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                        <textarea name="desc" class="form-control col-8 mb-1" id="desc" cols="30"
+                            rows="4">{{ book.description }}</textarea>
+                        <button class="btn btn-primary col-4">Update</button>
+                        <a href="/books/{{ book.id }}/delete" class="btn btn-danger col-4">Delete</a>
+                        {% endif %}
+                        {% if user.id != book.uploaded_by.id %}
+                        <p class="m-0"><b>Decription:</b> {{ book.description }}</p>
+                        {% endif %}
+                    </form>
+                </div>
+                <div class="container col-6">
+                    <h4>Users Who Like This Book: </h4>
+                    <div class="container">
+                        <ul>
+                            {% for this_user in book.users_who_like.all %}
+                            {% if request.session.id == this_user.id %}
+                            <li>{{ this_user.first_name }} {{ this_user.last_name }} <a
+                                    href="/books/{{ book.id }}/remove_to_fav"
+                                    class="badge badge-success">Un-Favorite</a></li>
+                            {% endif %}
+                            {% if request.session.id != this_user.id %}
+                            <li>{{ this_user.first_name }} {{ this_user.last_name }}</li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                        {% if user not in book.users_who_like.all %}
+                        <a href="/books/{{ book.id }}/add_to_fav_view" class="badge badge-success">Add to favorites</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <a href="/success" class="float-right">Go back</a>
+        </div>
+    </div>
+</body>
+
+</html>

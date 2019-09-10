@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 600px;
+            margin: auto;
+        }
+
+        input {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="display: inline-block;">Add a New User</h1>
+        <a href="/" style="display: inline-block; margin-left: 80px;">Home</a>
+        <form action="/add_process" method="POST">
+            <p>First Name:</p>
+            <input type="text" name="fname">
+            <p>Last Name:</p>
+            <input type="text" name="lname">
+            <p>Email:</p>
+            <input type="text" name="email">
+            <p>Description:</p>
+            <textarea name="desc" cols="30" rows="10"></textarea><br>
+            <input type="submit" value="Add user">
+        </form>
+    </div>
+</body>
+
+</html>

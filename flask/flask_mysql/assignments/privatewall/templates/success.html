@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/cde5077fb4.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Private Wall</title>
+    <style>
+        .tab {
+            margin-left: 20px;
+        }
+
+        .messages p,
+        .sent h5 {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid border-bottom mb-4">
+        <div class="row">
+            <h1 class="col-md-9">CodingDojo Wall</h1>
+            <div class="row col-md-3 mt-3">
+                <h4>Welcome, {{ user[0].first_name }}!</h4>
+                <a href="/logout" class="ml-4">Log out</a>
+            </div>
+        </div>
+        <small class="form-text text-success">
+            {% with messages = get_flashed_messages(category_filter=["reg-success"]) %}
+            {{ messages[0]}}
+            {% endwith %}
+        </small>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="row col-md-6 border">
+                <div class="messages">
+
+                    <h5 class><u>{{ countMessages }} Message(s) for You</u></h5>
+                    {% if messages != False %}
+                    {% for message in messages %}
+                    <p class="font-weight-bold text-primary">{{ message.sent_by }} said
+                        ({{ timenow - message.created_at.hour }} hour/s ago):</p>
+                    <q class="tab">{{ message.message }}</q>
+                    <a href="/message/{{ message.id }}/delete" class="d-block text-danger fas fa-trash-alt"></a>
+                    {% endfor %}
+                    {% else %}
+                    <p class="font-weight-bold">No messages</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row col-md-6 ml-4 border">
+                <div class="sent col-12">
+                    <h5 class><u>Send Messages</u></h5>
+                    <small class="text-success info">You have sent {{ session['count'] }} messages so far</small>
+                    <small class="text-success info d-block">
+                        {% with messages = get_flashed_messages(category_filter=["sent"]) %}
+                        {{ messages[0]}}
+                        {% endwith %}</small>
+                    <div class="container">
+                        {% for user in users %}
+                        <form action="/send-message" method="POST">
+                            <div class="form-group">
+                                <label for="name">{{ user.first_name }}:</label>
+                                <input type="text" class="form-control mb-2 col-8" name="message" id="name">
+                                <input type="hidden" name="id" value="{{ user.id }}">
+                                <input type="submit" class="btn btn-primary btn-sm" value="Send">
+                            </div>
+                        </form>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

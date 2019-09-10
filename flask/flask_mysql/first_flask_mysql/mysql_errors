@@ -1,0 +1,8 @@
+pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'lcalhost' ([Errno 8] nodename nor servname provided, or not known)")
+NameError: name 'dbase' is not defined
+pymysql.err.InternalError: (1049, "Unknown database 'worlds'")
+Something went wrong (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FRO friends' at line 1")
+TypeError: 'module' object is not callable
+pymysql.err.OperationalError: (1045, "Access denied for user 'root'@'localhost' (using password: YES)")
+AttributeError: 'str' object has no attribute 'cursor'
+pymysql.err.InterfaceError: (0, '')

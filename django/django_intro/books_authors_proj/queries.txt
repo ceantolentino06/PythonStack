@@ -1,0 +1,94 @@
+>>> Book.objects.create(title="C Sharp", desc="A programming language")
+<Book: Book object>
+>>> Book.objects.create(title="Java", desc="A programming language")
+<Book: Book object>
+>>> Book.objects.create(title="Python", desc="A programming language")
+<Book: Book object>
+>>> Book.objects.create(title="PHP", desc="A programming language")
+<Book: Book object>
+>>> Book.objects.create(title="Ruby", desc="A programming language")
+<Book: Book object>
+
+>>> Author.objects.create(first_name="Jane", last_name="Austen")
+<Author: Author object>
+>>> Author.objects.create(first_name="Emily", last_name="Dickinson")
+<Author: Author object>
+>>> Author.objects.create(first_name="Fyodor", last_name="Dostoevksy")
+<Author: Author object>
+>>> Author.objects.create(first_name="William", last_name="Shakespeare")
+<Author: Author object>
+>>> Author.objects.create(first_name="Lau", last_name="Tzu")
+<Author: Author object>
+
+You are trying to add a non-nullable field 'notes' to author without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+Select an option: 1
+Please enter the default value now, as valid Python
+The datetime and django.utils.timezone modules are available, so you can do e.g. timezone.now
+Type 'exit' to exit this prompt
+>>> "Put note here"
+
+>>> c = Book.objects.get(id=1)
+>>> c.title = "C#"
+>>> c.save()
+
+>>> auth = Author.objects.get(id=4)
+>>> auth.first_name = "Bill"
+>>> auth.save()
+>>> auth.first_name
+'Bill'
+
+>>> auth = Author.objects.get(id=1)
+>>> auth
+<Author: Author object>
+>>> auth.books.add(Book.objects.get(id=1))
+>>> auth.books.add(Book.objects.get(id=2))
+
+>>> auth = Author.objects.get(id=2)
+>>> auth.books.add(Book.objects.get(id=1))
+>>> auth.books.add(Book.objects.get(id=2))
+>>> auth.books.add(Book.objects.get(id=3))
+>>> auth.books.all()
+
+>>> auth = Author.objects.get(id=3)
+>>> auth.books.add(Book.objects.get(id=1))
+>>> auth.books.add(Book.objects.get(id=2))
+>>> auth.books.add(Book.objects.get(id=3))
+>>> auth.books.add(Book.objects.get(id=4))
+>>> auth.books.all()
+
+>>> auth = Author.objects.get(id=4)
+>>> auth.books.add(Book.objects.get(id=1))
+>>> auth.books.add(Book.objects.get(id=2))
+>>> auth.books.add(Book.objects.get(id=3))
+>>> auth.books.add(Book.objects.get(id=4))
+>>> auth.books.add(Book.objects.get(id=5))
+>>> auth.books.all()
+
+>>> book = Book.objects.get(id=3)
+>>> book.author.all()
+
+>>> book.author.remove(book.author.all()[0])
+>>> book.author.all()
+
+>>> auth = Author.objects.get(id=5)
+>>> book = Book.objects.get(id=2)
+>>> book.author.add(auth)
+>>> book.author.all()
+
+>>> all_books_of = Book.objects.filter(author=Author.objects.get(id=3))
+>>> for book in all_books_of:
+...     print(book.title)
+... 
+C#
+Java
+Python
+PHP
+
+>>> all_auth_of = Author.objects.filter(books = Book.objects.get(id=5))
+>>> for author in all_auth_of:
+...     print(author.first_name + ' ' + author.last_name )
+... 
+Bill Shakespeare

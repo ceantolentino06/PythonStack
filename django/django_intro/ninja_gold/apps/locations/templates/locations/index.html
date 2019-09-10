@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Ninja Gold</title>
+    <style>
+        #activities p{
+            margin:0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container p-3">
+        <div class="container">
+            <h5>Your Gold: <span class="text-warning">{{ request.session.gold }}</span></h5>
+        </div>
+        <div class="container row text-center m-1 mb-2">
+            <div class="container col-3 border p-3">
+                <h4>Farm</h4>
+                <p>(earns 10-20 golds)</p>
+                <a href="/process_money/farm" class="btn btn-primary">Find Gold</a>
+            </div>
+            <div class="container col-3 border p-3">
+                <h4>Cave</h4>
+                <p>(earns 5-10 golds)</p>
+                <a href="/process_money/cave" class="btn btn-primary">Find Gold</a>
+            </div>
+            <div class="container col-3 border p-3">
+                <h4>House</h4>
+                <p>(earns 2-5 golds)</p>
+                <a href="/process_money/house" class="btn btn-primary">Find Gold</a>
+            </div>
+            <div class="container col-3 border p-3">
+                <h4>Casino</h4>
+                <p>(earns/takes 0-50 golds)</p>
+                <a href="/process_money/casino" class="btn btn-primary">Find Gold</a>
+            </div>
+        </div>
+        <div class="container m-1">
+            <h5>Activities:</h5>
+            <div class="container overflow-auto border border-primary" style="height: 200px" id="activities">
+                {% if request.session.activities %}
+                {% for activity in request.session.activities %}
+                    <p class="text-success">{{ activity }}</p>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="container">
+            <a href="/reset" class="btn btn-primary">Reset</a>
+        </div>
+    </div>
+</body>
+
+</html>

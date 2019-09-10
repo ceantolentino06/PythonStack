@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 600px;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="display: inline-block;">Edit User {{ user[0].id }}</h1>
+        <a href="/" style="display: inline-block; margin-left: 300px;">Home</a>
+        <form action="/edit_process" method="POST">
+            <input type="hidden" name="id" value="{{ user[0].id }}">
+            <p>First Name:</p>
+            <input type="text" name="fname" value="{{ fullname[0] }}">
+            <p>Last Name:</p>
+            <input type="text" name="lname" value="{{ fullname[1] }}">
+            <p>Email:</p>
+            <input type="text" name="email" value="{{ user[0].email }}"><br>
+            <input type="submit" value="Update">
+        </form>
+        <a href="/show_user/{{ user[0].id }}">Show User</a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 style="display:inline-block;">User {{ user[0].id }}</h1>
+        <a href="/" style="display: inline-block; margin-left: 200px;">Home</a>
+        <p>Full Name: {{ user[0].fullname }}</p>
+        <p>Email: {{ user[0].email }}</p>
+        <p>Description: {{ user[0].description }}</p>
+        <p>Created On: {{ user[0].created_at }}</p>
+        <p>Last Updated On: {{ user[0].updated_at }}</p>
+
+        <a href="/edit_user/{{ user[0].id }}">Edit</a> | <a href="/delete_user/{{ user[0].id }}">Delete</a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+// CREATE A USER
+Users.objects.create(first_name="Cean", last_name="Tolentino", email_address="cean@mail.com", age=22)
+
+// GET ALL USERS WITH THEIR INFORMATION
+Users.objects.all().values()
+
+// GETS THE LAST INSTANCE
+Users.objects.last()
+
+// GETS THE FIRST INSTANCE
+Users.objects.first()
+
+// EDIT ID=3 LAST_NAME TO PANCAKES
+>>> user = Users.objects.get(id=3)
+>>> user.last_name = "Pancakes"
+>>> user.save()
+
+// DELETES USER ID=2
+>>> user = Users.objects.get(id=2)
+>>> user.delete()
+(1, {'users_app.Users': 1})
+
+// GET ALL USERS ASCENDING BY first_name
+>>> Users.objects.all().values().order_by("first_name")
+
+// GET ALL USERS DESCENDING BY first_name
+>>> Users.objects.all().values().order_by("-first_name")

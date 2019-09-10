@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>C+R Pets</title>
+    <style>
+        .container{
+            width: 800px;
+            margin: auto;
+            text-align: center;
+        }
+        table{
+            width: 700px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>All the Pets</h1>
+        <table border=1 align=center>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+            </tr>
+            {% for pet in pets %}
+            <tr>
+                <td>{{ pet.pet_id }}</td>
+                <td>{{ pet.name }}</td>
+                <td>{{ pet.type }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <hr>
+        <h1>Add a Pet</h1>
+        <form action="/add_pet" method="POST">
+            <p>Name: <input type="text" name="name"></p>
+            <p>Type: <input type="text" name="type"></p>
+            <input type="submit" value="Add Pet">
+        </form>
+    </div>
+</body>
+</html>

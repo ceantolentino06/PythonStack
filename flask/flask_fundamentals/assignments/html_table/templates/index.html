@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML Table</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Full Name</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            {% for name in user %}
+                <td>{{user[name]}}</td>
+            {% endfor %}
+            <td>{{user['first_name']}} {{ user['last_name'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

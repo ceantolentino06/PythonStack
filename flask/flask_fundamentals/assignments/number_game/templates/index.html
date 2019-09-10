@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Number Game</title>
+    <style>
+        .container{
+            width: 700px;
+            margin: auto;
+            background-color: aliceblue;
+            text-align: center;
+            padding: 10px;
+        }
+        .result-red{
+            background-color: red;
+            display: inline-block;
+            height: 200px;
+            width: 200px;
+            margin-bottom: 30px;    
+        }
+        .result-green{
+            background-color: green;
+            display: inline-block;
+            height: 200px;
+            width: 200px;
+            margin-bottom: 30px;    
+        }
+        #result{
+            color: white;
+            font-size: 40px;   
+            margin-top: 60px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Great Number Game!</h1>
+        <p>I am thinking of a number betwen 1 to 100</p>
+        <p>Take a guess!</p>
+        <div class="result-{{session['color']}}">
+            <p id="result">{{ session['result'] }}</p>
+        </div>
+        <form method="POST" action="/guess">
+            <input type="text" name="usernum">
+            <input type="submit" value="GUESS!">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Read(All)</title>
+    <style>
+        .container {
+            width: 900px;
+            margin: auto;
+        }
+
+        table {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>All User</h1>
+        <table border=1>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Description</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.fullname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.description}}</td>
+                <td>{{ user.created_at }}</td>
+                <td><a href="/show_user/{{ user.id }}">Show | <a href="/edit_user/{{ user.id }}">Edit | <a
+                                href="/delete_user/{{ user.id }}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="/add_user">Add a new user</a>
+    </div>
+</body>
+
+</html>

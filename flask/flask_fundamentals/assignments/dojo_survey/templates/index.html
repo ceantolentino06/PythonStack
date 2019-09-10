@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dojo Survey</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <form action="/result" method="POST">
+            <p>Your Name: <input type="text" name="name" id="name"></p>
+            <p>Gender: <input type="radio" name="gender" value="Male" checked>Male
+                      <input type="radio" name="gender" value="Female">Female
+            </p>
+            <p>Dojo Location: 
+                <select name="location" id="loc">
+                    <option value="San Jose">San Jose</option>
+                    <option value="Berkeley">Berkeley</option>
+                </select>
+            </p>
+            <p>Languages you know: <br>
+                <input type="checkbox" name="test" value="Javascript">Javascript<br>
+                <input type="checkbox" name="test" value="Ruby">Ruby<br>
+                <input type="checkbox" name="test" value="Python">Python<br>
+                <input type="checkbox" name="test" value="HTML/CSS">HTML/CSS<br>
+                <input type="checkbox" name="test" value="Java">Java<br>
+            </p>
+            <p>Favorite Language: 
+                <select name="language" id="lang">
+                    <option value="Javascript">Javascript</option>
+                    <option value="Python">Python</option>
+                    <option value="Ruby">Ruby</option>
+                    <option value="Java">Java</option>
+                </select>
+            </p>
+            <p>Comment:</p><textarea name="comment" id="" cols="30" rows="10"></textarea>
+            <input type="submit" value="GO" id="button">
+        </form>
+    </div>
+</body>
+</html>

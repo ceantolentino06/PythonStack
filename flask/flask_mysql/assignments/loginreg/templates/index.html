@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src={{ url_for('static', filename='script.js') }}></script>
+    <title>Login Form</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Registration Form</h1>
+                <form action="/register" method="POST" id="regForm">
+                    <div class="form-group">
+                        <small class="form-text text-danger">
+                            {% with messages = get_flashed_messages(category_filter=["fname"]) %}
+                            {{ messages[0]}}
+                            {% endwith %}
+                        </small>
+                        <label for="firstName">First Name:</label>
+                        <input type="text" class="form-control w-75" name="fname" id="firstName"
+                            value="{{session['fname']}}">
+                    </div>
+                    <div class="form-group">
+                        <small class="form-text text-danger">
+                            {% with messages = get_flashed_messages(category_filter=["lname"]) %}
+                            {{ messages[0]}}
+                            {% endwith %}
+                        </small>
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" class="form-control w-75" name="lname" id="lastName"
+                            value="{{session['lname']}}">
+                    </div>
+                    <div class="form-group">
+                        <div id="emailMsg"></div>
+                        <!-- <small class="form-text text-danger"></small> -->
+                        <label for="email">Email Address:</label>
+                        <input type="text" class="form-control w-75" name="email" id="email"
+                            value="{{session['email']}}">
+                    </div>
+                    <div class="form-group">
+                        <small class="form-text text-danger">
+                            {% with messages = get_flashed_messages(category_filter=["password"]) %}
+                            {{ messages[0]}}
+                            {% endwith %}
+                        </small>
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control w-75" name="password" id="password">
+                        <small class="form-text text-info">Password must be 8 characters or more</small>
+                    </div>
+                    <div class="form-group">
+                        <small class="form-text text-danger">
+                            {% with messages = get_flashed_messages(category_filter=["confpw"]) %}
+                            {{ messages[0]}}
+                            {% endwith %}
+                        </small>
+                        <label for="confpw">Confirm Password:</label>
+                        <input type="password" class="form-control w-75" name="confpw" id="confpw">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h1>Login Form</h1>
+                <small class="form-text text-danger">
+                    {% with messages = get_flashed_messages(category_filter=["login-error"]) %}
+                    {{ messages[0]}}
+                    {% endwith %}
+                </small>
+                <form action="/login" method="POST">
+                    <div class="form-group">
+                        <label for="userEmail">Email address</label>
+                        <input type="email" name="email" class="form-control w-75" id="userEmail"
+                            aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="userPW">Password</label>
+                        <input type="password" name="password" class="form-control w-75" id="userPW"
+                            placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Log in</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

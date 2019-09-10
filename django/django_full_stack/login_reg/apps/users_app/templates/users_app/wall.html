@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/cde5077fb4.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Success</title>
+</head>
+
+<body>
+    <div class="container-fluid border">
+        <div class="message">
+            {% if messages %}
+            {% for message in messages %}
+            {% ifequal message.tags 'success info' %}
+            <small class="text-success">{{ message }}</small>
+            {% endifequal %}
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="container-fluid col-7">
+                <h1>CodingDojo Wall</h1>
+            </div>
+            <div class="container-fluid col-4 mt-2">
+                <div class="row">
+                    <div class="container-fluid col-8 mt-2">
+                        <h5>Welcome, {{request.session.fname}}!</h5>
+                    </div>
+                    <div class="container-fluid col-4 mt-2">
+                        <a href="/logout">Log off</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid p-3">
+        <div class="container">
+            <form action="/wall/post_message" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <textarea name="message" class="form-control" id="message" cols="30" rows="5"></textarea>
+                    <button class="btn btn-primary mt-2 float-right ">Post a message</button>
+                </div>
+            </form>
+        </div>
+        <div class="container">
+            {% if messages %}
+            {% for message in messages %}
+            {% ifequal message.tags 'message info' %}
+            <small class="text-info">{{ message }}</small>
+            {% endifequal %}
+            {% endfor %}
+            {% endif %}
+        </div>
+        {% for wall_message in wall_messages %}
+        <div class="container mt-5">
+            <div class="message">
+                <div class="container">
+                    <h6 class="font-weight-bold text-primary">{{wall_message.user_id.first_name}} {{wall_message.user_id.last_name}} - {{wall_message.created_at}}</h6>
+                    {% if wall_message.user_id.id == request.session.id %}
+                        <a href="/wall/{{ wall_message.id }}/delete_message" class="d-block mt-2 float-right text-danger fas fa-trash-alt"></a>
+                    {% endif %}
+                    {% if wall_message.user_id.id != request.session.id%}
+                        <a class="d-block mt-2 float-right text-muted fas fa-trash-alt"></a>
+                    {% endif %}
+                </div>
+                <div class="container ml-4">
+                    <p>{{wall_message.message}}</p>
+                </div>
+            </div>
+            {% for comments in wall_message.comments.all %}
+            <div class="comment">
+                <div class="container ml-4">
+                    <h6 class="font-weight-bold text-success">{{comments.user_id.first_name}} {{comments.user_id.last_name}} - {{comments.created_at}}</h6>
+                </div>
+                <div class="container ml-5">
+                    <p>{{comments.comment}}</p>
+                </div>
+            {% endfor %}
+                <div class="container ml-5 col-10">
+                    <form action="/wall/post_comment" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <textarea name="comment" class="form-control" id="comment" cols="30" rows="1"></textarea>
+                            <input type="hidden" value="{{ wall_message.id }}" name="messageID">
+                            <button class="btn btn-success mt-2 float-right ">Post a comment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

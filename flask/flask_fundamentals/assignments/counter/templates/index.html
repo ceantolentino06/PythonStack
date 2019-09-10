@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>COUNTER</title>
+    <style>
+        .container{
+            width: 800px;
+            text-align: center;
+            margin: auto;
+        }
+        a{
+            padding:10px;
+            background-color: aquamarine;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>COUNTER</h1>
+        <p>This page has loaded {{ session['counter'] }} times</p>
+        <a href="/add2">ADD 2 VIEWS</a>
+        <a href="/destroy_session">RESET</a>
+    </div>
+</body>
+</html>
